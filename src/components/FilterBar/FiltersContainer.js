@@ -5,21 +5,37 @@ import FilterItem from "./FilterItem";
 
 import { BsFilter } from "react-icons/bs";
 import { BiChevronDown, BiChevronUp, BiChevronRight } from "react-icons/bi";
+import { MdClear } from "react-icons/md";
 
 import { v4 as uuid } from "uuid";
 
 const FiltersContainer = () => {
-  const { genres, parent_platforms, developers, tags } = useGlobalContext();
+  const {
+    genres,
+    parent_platforms,
+    developers,
+    tags,
+    filtersContainer,
+    isFiltersContainerOpen,
+    setIsFiltersContainerOpen
+  } = useGlobalContext();
 
   const allFilterCategories = [genres, parent_platforms, developers, tags];
 
-  console.log("render", allFilterCategories);
   return (
-    <div className="filters-container">
-      <h2>
-        <BsFilter />
-        Filters
-      </h2>
+    <div
+      className={`filters-container ${isFiltersContainerOpen ? "open" : ""}`}
+      ref={filtersContainer}
+    >
+      <div className="filters-container-nav">
+        <h2>
+          <BsFilter />
+          Filters
+        </h2>
+        <button onClick={() => setIsFiltersContainerOpen(false)}>
+          <MdClear />
+        </button>
+      </div>
       {allFilterCategories.map((category) => {
         const uniqueId = uuid();
         return <FilterCategory key={uniqueId} category={category} />;
@@ -42,11 +58,9 @@ const FilterCategory = ({ category }) => {
     if (isFilterItemsOpen === false) {
       setFilterItems([]);
     } else if (isFilterItemsOpen && isShowingMore) {
-      console.log(filterItems);
 
       setFilterItems(items);
     } else if (isFilterItemsOpen && !isShowingMore) {
-      console.log(filterItems);
 
       setFilterItems(items.slice(0, 3));
     }

@@ -16,7 +16,12 @@ export const AppliedFilters = () => {
     let allFilters = [...searchParams];
 
     allFilters = allFilters.filter((filter) => {
-      if (filter.includes("q") || filter.includes("page") || filter.includes("ordering")) return;
+      if (
+        filter.includes("q") ||
+        filter.includes("page") ||
+        filter.includes("ordering")
+      )
+        return;
 
       return filter;
     });
@@ -36,7 +41,6 @@ export const AppliedFilters = () => {
     for (let i = 0; i < appliedFiltersKeys.length; i++) {
       for (let j = 0; j < valuesArray[i].length; j++) {
         for (let k = 0; k < state[appliedFiltersKeys[i]].items.length; k++) {
-          console.log(valuesArray[i][j])
 
           if (
             valuesArray[i][j] ===
@@ -50,20 +54,18 @@ export const AppliedFilters = () => {
                 filterId: valuesArray[i][j],
               },
             ];
-            console.log(state[appliedFiltersKeys[i]].items[k].name);
           }
         }
       }
     }
 
     setActiveFilters(newActiveFilters);
-
   }, [searchParams, state]);
 
   const deleteFilter = (e) => {
     const targetedFilterCategory =
       e.target.closest(".delete-filter").dataset.filterCategory;
-      
+
     let newValuesArray = searchParams
       .get(targetedFilterCategory)
       .split(",")
@@ -84,39 +86,41 @@ export const AppliedFilters = () => {
   };
 
   return (
-    <div className="active-filters-wrapper">
-      {activeFilters.length > 0 &&
-        activeFilters.map((filter) => {
-          const uniqueId = uuid();
+    <>
+      {activeFilters.length > 0 && (
+        <div className="active-filters-wrapper">
+          {activeFilters.map((filter) => {
+            const uniqueId = uuid();
 
-          return (
-            <div key={uniqueId} className="active-filter">
-              <span>{filter.filterName}</span>
-              <button
-                className="delete-filter"
-                data-filter-category={filter.filterCategory}
-                data-filter-id={filter.filterId}
-                onClick={(e) => deleteFilter(e)}
-              >
-                {" "}
-                <MdClear
+            return (
+              <div key={uniqueId} className="active-filter">
+                <span>{filter.filterName}</span>
+                <button
+                  className="delete-filter"
                   data-filter-category={filter.filterCategory}
                   data-filter-id={filter.filterId}
-                />
-              </button>
-            </div>
-          );
-        })}
-      {activeFilters.length > 0 && (
-        <button
-          className="clear-filters"
-          onClick={() => {
-            setSearchParams("");
-          }}
-        >
-          Clear filters <GiMagicBroom />
-        </button>
+                  onClick={(e) => deleteFilter(e)}
+                >
+                  {" "}
+                  <MdClear
+                    data-filter-category={filter.filterCategory}
+                    data-filter-id={filter.filterId}
+                  />
+                </button>
+              </div>
+            );
+          })}
+
+          <button
+            className="clear-filters"
+            onClick={() => {
+              setSearchParams("");
+            }}
+          >
+            Clear filters <GiMagicBroom />
+          </button>
+        </div>
       )}
-    </div>
+    </>
   );
 };

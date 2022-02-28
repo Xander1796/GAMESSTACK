@@ -10,7 +10,7 @@ const AllGames = () => {
   const [gridType, setGridType] = useState("multi-column");
   const [games, setGames] = useState([]);
   const [pagination, setPagination] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div id="games">

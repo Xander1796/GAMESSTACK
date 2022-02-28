@@ -1,20 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import { useGlobalContext } from "../../context";
+
 import { OneColumnDisplaySvg } from "../../svgs/svgComponents/OneColumnDisplaySvg";
 import { NormalDisplaySvg } from "../../svgs/svgComponents/NormalDisplaySvg";
 //icons
 import { BiSortAlt2 } from "react-icons/bi";
+import { BsFilter } from "react-icons/bs";
 
-const GamesActionsBar = ({setGridType}) => {
+const GamesActionsBar = ({ setGridType }) => {
   return (
     <div className="games-actions-bar">
+      <FilterButton />
       <OrderGames />
       <SetDisplayWrapper setGridType={setGridType} />
     </div>
   );
 };
-
 
 const SetDisplayWrapper = ({ setGridType }) => {
   const [backgroundPosition, setBackgroundPosition] = useState("active-left");
@@ -88,6 +91,22 @@ const OrderGames = () => {
         <option data-name="-released">Release Date</option>
       </select>
     </div>
+  );
+};
+
+const FilterButton = () => {
+  const { setIsFiltersContainerOpen } = useGlobalContext();
+  
+  return (
+    <button
+      className="filter-action-button"
+      onClick={() => {
+        setIsFiltersContainerOpen(true);
+      }}
+    >
+      <BsFilter />
+      Filter
+    </button>
   );
 };
 

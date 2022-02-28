@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect, useReducer } from "react";
+import React, { useContext, useState, useRef, useEffect, useReducer } from "react";
 import reducer from "./reducer";
 
-import API_KEY from "./api_key"
+import API_KEY from "./api_key";
 
 const AppContext = React.createContext();
 
@@ -26,6 +26,9 @@ const initialState = {
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isFiltersContainerOpen, setIsFiltersContainerOpen] = useState(false);
+
+  const filtersContainer = useRef();
 
   const getFilterCategories = async (urlEndpoint) => {
     const data = await fetch(
@@ -33,7 +36,6 @@ const AppProvider = ({ children }) => {
     );
     const response = await data.json();
 
-    console.log("FILTER CATEGORIES FETCHED");
     return response.results;
   };
 
@@ -109,6 +111,9 @@ const AppProvider = ({ children }) => {
       value={{
         ...state,
         state,
+        isFiltersContainerOpen,
+        setIsFiltersContainerOpen,
+        filtersContainer
       }}
     >
       {children}

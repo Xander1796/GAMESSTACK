@@ -42,9 +42,6 @@ const reducer = (state, action) => {
   }
 
   if (action.type === "REMOVE_FILTER") {
-    console.log(state.appliedFilters.filterNames.filter(
-      (filterName) => filterName.toString !== action.payloadName.toString()
-    ))
     return {
       ...state,
       appliedFilters: {

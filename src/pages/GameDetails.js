@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 
-import gow from "../svgs/gow.jpeg";
 import AppLogo from "../svgs/app-logo.svg";
 import { useParams, useSearchParams } from "react-router-dom";
 
@@ -626,14 +625,12 @@ const GameDetails = () => {
       `https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`
     );
     const response = await data.json();
-    console.log(response);
     setGame(response);
 
     setTimeout(() => {
       setIsLoading(false);
     }, 400);
   }, [searchParams]);
-  console.log(isLoading);
 
   const {
     background_image,
@@ -643,7 +640,7 @@ const GameDetails = () => {
     name,
     parent_platforms,
   } = game;
-  console.log("RENDERING");
+
   useEffect(() => {
     if (metacritic) {
       setTimeout(() => {
@@ -654,7 +651,7 @@ const GameDetails = () => {
       }, 500);
     }
   }, [isLoading === false]);
-  console.log("render game details");
+
   return (
     <section className="game-details-section">
       {isLoading || (
@@ -769,7 +766,7 @@ const GameDetailsBottom = ({ game, gameId }) => {
       `https://api.rawg.io/api/games/${gameId}/achievements?key=${API_KEY}&page=${achievementsPage}&page_size=${pageSize}`
     );
     const response = await data.json();
-    console.log(response.results, response);
+
     if (response.results.length > 0) {
       setTimeout(() => {
         setAchievements([...achievements, ...response.results]);
@@ -794,7 +791,7 @@ const GameDetailsBottom = ({ game, gameId }) => {
       `https://api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`
     );
     const response = await data.json();
-    console.log(response.results);
+
     if (response?.results?.length > 0) {
       setScreenshots(response.results);
     }
@@ -806,7 +803,6 @@ const GameDetailsBottom = ({ game, gameId }) => {
 
   useEffect(() => {
     if (detailsType === "achievements" && achievements.length === 0) {
-      console.log("yes");
       fetchAchievements();
     }
   }, [detailsType]);

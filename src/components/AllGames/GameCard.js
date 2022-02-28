@@ -66,7 +66,7 @@ const GameCard = ({ game, isLoading }) => {
             return <li key={i}>{parentPlatform.platform.name}</li>;
           })}
         </ul>
-        <h3 className="game-card-name">{name}</h3>
+        <Link to={`/game-details/${gameId}`} className="game-card-name">{name}</Link>
         {metacritic && (
           <div className="game-card-score">
             <svg
