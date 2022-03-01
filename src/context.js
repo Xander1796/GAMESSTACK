@@ -1,8 +1,6 @@
 import React, { useContext, useState, useRef, useEffect, useReducer } from "react";
 import reducer from "./reducer";
 
-import API_KEY from "./api_key";
-
 const AppContext = React.createContext();
 
 const initialState = {
@@ -32,7 +30,7 @@ const AppProvider = ({ children }) => {
 
   const getFilterCategories = async (urlEndpoint) => {
     const data = await fetch(
-      `https://api.rawg.io/api${urlEndpoint}?key=${API_KEY}`
+      `https://api.rawg.io/api${urlEndpoint}?key=${process.env.REACT_APP_API_KEY}`
     );
     const response = await data.json();
 

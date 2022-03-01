@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { NavLink, Link } from "react-router-dom";
 
 import AppLogo from "../svgs/app-logo.svg";
 
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState("true");
-
   const links = [
     {
       name: "home",

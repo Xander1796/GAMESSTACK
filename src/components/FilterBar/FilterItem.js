@@ -1,7 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const FilterItem = ({ item, categoryName }) => {
   const { name, id: filterId } = item;

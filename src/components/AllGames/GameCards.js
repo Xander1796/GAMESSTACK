@@ -4,8 +4,6 @@ import { useSearchParams } from "react-router-dom";
 import { IoGameControllerSharp } from "react-icons/io5";
 import { v4 as uuid } from "uuid";
 
-import API_KEY from "../../api_key";
-
 //components
 import GameCard from "./GameCard";
 
@@ -43,7 +41,9 @@ const GameCards = ({
     };
 
     const data = await fetch(
-      `https://api.rawg.io/api/games?key=${API_KEY}${checkIfFilterExists()}&metacritic=60, 100&page_size=40`
+      `https://api.rawg.io/api/games?key=${
+        process.env.REACT_APP_API_KEY
+      }${checkIfFilterExists()}&metacritic=60, 100&page_size=40`
     );
     const response = await data.json();
     setGames(response.results);
@@ -93,7 +93,7 @@ const GameCards = ({
       {isLoading === false &&
         games.length > 0 &&
         games.map((game) => {
-          const uniqueId = uuid()
+          const uniqueId = uuid();
           return <GameCard key={uniqueId} game={game} isLoading={isLoading} />;
         })}
     </div>
