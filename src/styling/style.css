@@ -27,7 +27,16 @@
   --basic-transition: 0.2s ease all;
 }
 
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--vertical-margin);
+}
+
 body {
+  position: relative;
   margin: 0;
   padding: 0;
   background: var(--primary-color-700);
@@ -185,7 +194,8 @@ nav {
 }
 
 .home-section {
-  padding: 10rem var(--horizontal-padding) 0 20rem;
+  padding: 7rem var(--horizontal-padding) 0 20rem;
+  margin-bottom: auto;
 }
 
 .home-section-cta-wrapper h3 {
@@ -267,8 +277,6 @@ nav {
   z-index: 10;
   display: grid;
   padding: 0 var(--horizontal-padding);
-  margin-top: var(--vertical-margin);
-  padding-bottom: 3rem;
 }
 
 .games-section-content-wrapper {
@@ -739,7 +747,7 @@ input.filter-active {
 .game-cards.multi-column .game-card:hover {
   transform: scale(1.05);
   border-radius: 1rem 1rem 0 0;
-  z-index: 10;
+  z-index: 15;
 }
 
 .game-card-img {
@@ -1250,6 +1258,37 @@ input.filter-active {
   background: #0070a0;
 }
 
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: var(--vertical-margin);
+}
+
+footer p {
+  font-size: var(--font-size-500);
+  color: var(--text-color-400);
+  background: var(--accent-color-600);
+  padding: 2.5rem;
+  clip-path: polygon(
+    10% 0,
+    90% 0,
+    100% 50%,
+    100% 50%,
+    90% 100%,
+    10% 100%,
+    0 50%,
+    0 50%
+  );
+}
+
+footer a {
+  cursor: pointer;
+  color: var(--text-color-400);
+  text-decoration: underline;
+}
+
 @media (max-width: 1300px) {
   /* html {
     font-size: 57%;
@@ -1459,6 +1498,7 @@ input.filter-active {
 @media (max-width: 500px) {
   :root {
     --horizontal-padding: 2rem;
+    --vertical-margin: 2rem;
   }
 
   nav {
@@ -1559,14 +1599,14 @@ input.filter-active {
   .game-card-platforms li,
   .more-details-btn,
   .show-more-filters,
-   .pagination-wrapper {
+  .pagination-wrapper {
     font-size: var(--font-size-300);
   }
 
   .pagination-wrapper button {
     padding: 1rem 1.75rem;
   }
- 
+
   .scroll-to-top {
     right: 2rem;
     bottom: 2rem;
@@ -1631,6 +1671,15 @@ input.filter-active {
 
   .achievement:nth-child(2n) {
     background: #2a2f3c;
+  }
+
+  footer p {
+    font-size: var(--font-size-400);
+    padding: 2rem;
+  }
+
+  footer a {
+    font-size: inherit;
   }
 }
 

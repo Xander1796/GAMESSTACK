@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 
+import Footer from "../components/Footer";
+
 import AppLogo from "../svgs/app-logo.svg";
 import { useParams, useSearchParams } from "react-router-dom";
 
@@ -99,99 +101,104 @@ const GameDetails = () => {
   }, [isLoading === false]);
 
   return (
-    <section className="game-details-section">
-      {isLoading || (
-        <div
-          className="game-details-bk-img"
-          style={{
-            backgroundImage: `linear-gradient(to bottom, #1b1f2780 0%,  #1b1f27 85%), url(${
-              background_image ? background_image : AppLogo
-            })`,
-          }}
-        ></div>
-      )}
+    <>
+      <section className="game-details-section">
+        {isLoading || (
+          <div
+            className="game-details-bk-img"
+            style={{
+              backgroundImage: `linear-gradient(to bottom, #1b1f2780 0%,  #1b1f27 85%), url(${
+                background_image ? background_image : AppLogo
+              })`,
+            }}
+          ></div>
+        )}
 
-      {isLoading && <GameDetailsLoadingSkeleton />}
+        {isLoading && <GameDetailsLoadingSkeleton />}
 
-      {isLoading || (
-        <>
-          <div className="image-and-details-top">
-            <div
-              className="main-image"
-              style={{
-                backgroundImage: `url(${
-                  background_image ? background_image : AppLogo
-                })`,
-              }}
-            ></div>
-            <div className="details-top">
-              <div className="game-card-score">
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 40 40"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="20"
-                    cy="20"
-                    r="18.5"
-                    stroke="#005174"
-                    strokeWidth="3"
-                  />
-                  <circle
-                    ref={scoreMovingPath}
-                    data-moving-percent={117 - (Number(metacritic) / 100) * 117}
-                    className="score-moving-path"
-                    cx="20"
-                    cy="20"
-                    r="18.5"
-                    stroke="#00B2FF"
-                    strokeWidth="3"
-                  />
-                </svg>
-                <span className="game-card-score-text">{metacritic}</span>
-              </div>
-              <h1>{name}</h1>
-              {developers?.[0]?.name && (
-                <h3>
-                  <FiBox />
-                  Developed by: {developers[0].name}
-                </h3>
-              )}
-              {parent_platforms.length > 0 && (
-                <div className="platforms">
-                  <MdGamepad />
-                  {parent_platforms.map((parentPlatform, i) => {
-                    if (i > 4) return;
+        {isLoading || (
+          <>
+            <div className="image-and-details-top">
+              <div
+                className="main-image"
+                style={{
+                  backgroundImage: `url(${
+                    background_image ? background_image : AppLogo
+                  })`,
+                }}
+              ></div>
+              <div className="details-top">
+                <div className="game-card-score">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="20"
+                      cy="20"
+                      r="18.5"
+                      stroke="#005174"
+                      strokeWidth="3"
+                    />
+                    <circle
+                      ref={scoreMovingPath}
+                      data-moving-percent={
+                        117 - (Number(metacritic) / 100) * 117
+                      }
+                      className="score-moving-path"
+                      cx="20"
+                      cy="20"
+                      r="18.5"
+                      stroke="#00B2FF"
+                      strokeWidth="3"
+                    />
+                  </svg>
+                  <span className="game-card-score-text">{metacritic}</span>
+                </div>
+                <h1>{name}</h1>
+                {developers?.[0]?.name && (
+                  <h3>
+                    <FiBox />
+                    Developed by: {developers[0].name}
+                  </h3>
+                )}
+                {parent_platforms.length > 0 && (
+                  <div className="platforms">
+                    <MdGamepad />
+                    {parent_platforms.map((parentPlatform, i) => {
+                      if (i > 4) return;
 
-                    return (
-                      <span className="platform" key={i}>
-                        {parentPlatform.platform.name}
+                      return (
+                        <span className="platform" key={i}>
+                          {parentPlatform.platform.name}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
+                {genres?.length > 0 && (
+                  <div className="genres">
+                    <FaTheaterMasks />
+
+                    {genres.map((genre, i) => (
+                      <span className="genre" key={i}>
+                        {genre.name}
                       </span>
-                    );
-                  })}
-                </div>
-              )}
-              {genres?.length > 0 && (
-                <div className="genres">
-                  <FaTheaterMasks />
-
-                  {genres.map((genre, i) => (
-                    <span className="genre" key={i}>
-                      {genre.name}
-                    </span>
-                  ))}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          <GameDetailsBottom game={game} gameId={gameId} />
-        </>
-      )}
-    </section>
+            <GameDetailsBottom game={game} gameId={gameId} />
+          </>
+        )}
+      </section>
+      <Footer />
+    </>
   );
 };
 
